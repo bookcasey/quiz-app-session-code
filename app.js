@@ -2,6 +2,10 @@
  * Example store structure
  */
 const store = {
+  quizStarted: false,
+  questionNumber: 0,
+  score: 0,
+  userFeedback: null,
   // 5 or more questions are required
   questions: [
     {
@@ -27,9 +31,6 @@ const store = {
       correctAnswer: '2020'
     }
   ],
-  quizStarted: false,
-  questionNumber: 0,
-  score: 0
 };
 
 function generateStartPage() {
@@ -64,27 +65,32 @@ function handleAnswerChoice(){
       let answer = $('input[name=answer]:checked').val();
       console.log(answer,currentQuestion.correctAnswer);
       if(answer === currentQuestion.correctAnswer){
-        alert("Woot Woot!");
+        console.log('Woot woot!');
       } else {
-        alert("You Suck!");
+        console.log('You suck!');
       }
       store.questionNumber++;
-      let nextQuestion = generateQuestion(store.questions[store.questionNumber]);
-      render(nextQuestion);
+      render();
   });
 
 
 }
-function render(html) {
-  $("main").html(html);
+function render() {
+  let page = '';
+  
+  if(store.quizStarted) {
+    page += generateStartPage();
+  } else {
+    page += generateQuestion(store.questions[store.questionNumber])
+  }
+  
+  $("main").html(page);
 }
 
 function handleStartQuiz() {
     $("main").on("click", "#start", function(evt){
-      console.log("Clicked!")
-        store.quizStarted = true;
-        let question = generateQuestion(store.questions[store.questionNumber])
-      render(question);
+      store.quizStarted = true;
+      render();
     })
 }
 
@@ -92,8 +98,7 @@ function main() {
   console.log(store.questions);
   handleStartQuiz();
   handleAnswerChoice();
-  let startPage = generateStartPage();
-  render(startPage);
+  render();
 }
 
 $(main);
