@@ -1,0 +1,21 @@
+/* Your styles should be mobile-first and responsive */
+
+/** 
+  * If you are unclear on how to utilize a mobile-first, responsive technique to write your CSS, here is an example: 
+  *
+  * https://github.com/andreacardybailey/responsive_example/blob/master/styles/responsive-base.css 
+  *
+*/
+
+
+main{
+  width: 600px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.card{
+  border: 1px dashed blue;
+  margin: 50px;
+  padding: 50px;
+}
